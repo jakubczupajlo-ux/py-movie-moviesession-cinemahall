@@ -1,5 +1,6 @@
-from typing import Optional, List
+from typing import Optional
 from datetime import datetime
+from django.db.models import QuerySet
 from db.models import MovieSession
 
 
@@ -17,13 +18,13 @@ def create_movie_session(
 
 def get_movies_sessions(
     session_date: Optional[str] = None
-) -> List[MovieSession]:
+) -> QuerySet[MovieSession]:
     queryset = MovieSession.objects.all()
 
     if session_date:
         queryset = queryset.filter(show_time__date=session_date)
 
-    return list(queryset)
+    return queryset
 
 
 def get_movie_session_by_id(session_id: int) -> MovieSession:
